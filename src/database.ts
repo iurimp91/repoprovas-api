@@ -1,18 +1,19 @@
-import pg from "pg";
+import { getConnectionManager } from "typeorm";
 
-const { Pool } = pg;
+if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL.indexOf("sslmode=require") === -1) {
+    process.env.DATABASE_URL += "?sslmode=require";
+}
 
-const connection = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
+export default async function connectDatabase() {
+    const connectionManager = await getConnectionManager();
+    const connection = connectionManager.create({
+        name: "default",
+        type: "postgres",
+        url: process.env.DATABASE_URL,
+        entities: [`${process.env.NODE_ENV === 'production' ? 'dist' : 'src'}/entities/*.*`],
+        ssl: process.env.NODE_ENV === 'production'
+    });
 
-export default connection;
-
-// user: process.env.BD_USER,
-// password: process.env.BD_PASSWORD,
-// port: Number(process.env.BD_PORT),
-// host: process.env.BD_HOST,
-// database: process.env.BD_DATABASE,
+    await connection.connect();
+    return connection;
+}

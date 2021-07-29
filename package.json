@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test npx jest -i",
-    "build": "npx tsc --outDir dist",
-    "start": "node ./src/server.js",
-    "postinstall": "npm run build",
-    "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
+    "build": "NODE_ENV=production npx tsc --outDir dist",
+    "start": "NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/server.js",
+    "dev": "NODE_ENV=development npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
   },
   "keywords": [],
   "author": "",
@@ -31,6 +30,8 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.34"
   }
 }
