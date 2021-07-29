@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ExamInterface } from "../interfaces/ExamInterface";
+import ExamInterface from "../interfaces/ExamInterface";
 import { examValidation } from "../validations/examValidation";
 
 import * as examService from "../services/examService";
@@ -16,6 +16,8 @@ async function postExam(req: Request, res: Response) {
         return sendError(e, res);    
     }
 }
+
+export { postExam };
 
 function sendError(e: Error, res: Response): Response {
     console.log(e.message);
@@ -36,5 +38,3 @@ function sendError(e: Error, res: Response): Response {
         return res.sendStatus(500);
     }
 }
-
-export { postExam };

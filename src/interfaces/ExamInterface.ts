@@ -1,4 +1,4 @@
-export interface ExamInterface {
+export default interface ExamInterface {
     year: number,
     semester: number,
     categoryId: number,
