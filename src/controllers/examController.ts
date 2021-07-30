@@ -9,9 +9,13 @@ async function postExam(req: Request, res: Response) {
         const exam: Exam = req.body;
         const validExam = await examValidation(exam);
         
-        await examService.createExam(validExam);
+        const result = await examService.createExam(validExam);
         
-        return res.sendStatus(201);
+        if (result) {
+            return res.sendStatus(409);
+        } else {
+            return res.sendStatus(201);
+        }
     } catch (e) {
         return sendError(e, res);    
     }
@@ -32,8 +36,6 @@ function sendError(e: Error, res: Response): Response {
         || e.message.includes("foreign")
     ) {
         return res.sendStatus(400);
-    } else if (e.message.includes("duplicate")) {
-        return res.sendStatus(409);
     } else {
         return res.sendStatus(500);
     }

@@ -9,7 +9,6 @@ async function findSubjects() {
 
 async function findSubjectsById(id: number) {
     const result = await getRepository(Subjects).findByIds([id], {relations: ["teachers"]});
-    
     return result;
 }
 

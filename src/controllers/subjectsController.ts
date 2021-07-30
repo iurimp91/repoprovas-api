@@ -23,8 +23,12 @@ async function getSubjectsById(req: Request, res: Response): Promise<Response<Su
         const id = await paramsValidation(params);
 
         const subjects = await subjectsService.findSubjectsById(id);
-        
-        return res.send(subjects);
+
+        if (subjects[0]) {
+            return res.send(subjects);    
+        } else {
+            return res.sendStatus(404);
+        }
     } catch (e) {
         console.log(e.message);
         return res.sendStatus(500);
