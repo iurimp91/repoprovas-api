@@ -1,3 +1,5 @@
+import "../../src/setup";
+
 import supertest from "supertest";
 import { getConnection } from "typeorm";
 import app, { init } from "../../src/app";

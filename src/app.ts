@@ -9,6 +9,7 @@ import connectDatabase from "./database";
 import * as examController from "./controllers/examController";
 import * as categoriesController from "./controllers/categoriesController";
 import * as subjectsController from "./controllers/subjectsController";
+import * as teachersController from "./controllers/teachersController";
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,10 @@ app.post("/exam", examController.postExam);
 app.get("/categories", categoriesController.getCategories);
 
 app.get("/subjects", subjectsController.getSubjects);
+
+app.get("/subjects/:id", subjectsController.getSubjectsById);
+
+app.get("/teachers", teachersController.getTeachers);
 
 export default app;
 

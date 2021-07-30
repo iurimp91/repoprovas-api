@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import Teachers from "./Teachers";
 
 @Entity("subjects")
 export default class Subjects {
@@ -7,4 +8,11 @@ export default class Subjects {
 
     @Column()
     name: string;
+
+    @Column()
+    period: string;
+
+    @ManyToMany(() => Teachers)
+    @JoinTable()
+    teachers: Teachers[];
 }

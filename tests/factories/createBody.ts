@@ -1,4 +1,4 @@
-import ExamInterface from "../../src/interfaces/ExamInterface";
+import ExamInterface from "../../src/interfaces/interfaces";
 
 export default function createBody(
         year: number,

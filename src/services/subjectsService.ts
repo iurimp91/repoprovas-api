@@ -7,4 +7,10 @@ async function findSubjects() {
     return result;
 }
 
-export { findSubjects };
+async function findSubjectsById(id: number) {
+    const result = await getRepository(Subjects).findByIds([id], {relations: ["teachers"]});
+    
+    return result;
+}
+
+export { findSubjects, findSubjectsById };
