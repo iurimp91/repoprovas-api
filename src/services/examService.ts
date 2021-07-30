@@ -1,9 +1,8 @@
 import { getRepository } from "typeorm";
 
-import ExamInterface from "../interfaces/ExamInterface";
 import Exam from "../entities/Exam";
  
-async function createExam(exam: ExamInterface) {
+async function createExam(exam: Exam) {
     await getRepository(Exam).insert(exam);
 }
 

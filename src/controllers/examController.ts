@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import ExamInterface from "../interfaces/ExamInterface";
 import { examValidation } from "../validations/examValidation";
+import Exam from "../entities/Exam";
 
 import * as examService from "../services/examService";
 
 async function postExam(req: Request, res: Response) {
     try {
-        const exam: ExamInterface = req.body;
+        const exam: Exam = req.body;
         const validExam = await examValidation(exam);
         
         await examService.createExam(validExam);

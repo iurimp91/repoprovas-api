@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { Url } from "url";
 
 @Entity("exams")
-export default class ExamInterface {
+export default class Exam {
     @PrimaryGeneratedColumn()
     id: number;
 
