@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import Subjects from "../entities/Subjects";
 
-import { ReqParams } from "../interfaces/interfaces";
+import { ReqParams } from "../interfaces/ReqParams";
 import { paramsValidation } from "../validations/paramsValidation";
 
 import * as subjectsService from "../services/subjectsService";
+import { SubjectsInterface } from "../interfaces/SubjectsInterface";
 
-async function getSubjects(req: Request, res: Response): Promise<Response<Subjects[]>> {
+async function getSubjects(req: Request, res: Response): Promise<Response<SubjectsInterface[]>> {
     try {
         const subjects = await subjectsService.findSubjects();
         
@@ -17,7 +17,7 @@ async function getSubjects(req: Request, res: Response): Promise<Response<Subjec
     }
 }
 
-async function getSubjectsById(req: Request, res: Response): Promise<Response<Subjects[]>> {
+async function getSubjectsById(req: Request, res: Response): Promise<Response<SubjectsInterface[]>> {
     try {
         const params: ReqParams = { id: Number(req.params.id) };
         const id = await paramsValidation(params);

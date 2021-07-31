@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import Categories from "../entities/Categories";
+import { CategoriesInterface } from "../interfaces/CategoriesInterface";
 
 import * as categoriesService from "../services/categoriesService";
 
 
-async function getCategories(req: Request, res: Response): Promise<Response<Categories[]>> {
+async function getCategories(req: Request, res: Response): Promise<Response<CategoriesInterface[]>> {
     try {
         const categories = await categoriesService.findCategories();
         

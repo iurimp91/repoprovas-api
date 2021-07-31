@@ -1,6 +1,6 @@
 import joi from "joi";
 
-import { ReqParams } from "../interfaces/interfaces";
+import { ReqParams } from "../interfaces/ReqParams";
 
 export async function paramsValidation(params: ReqParams) {
     const schema = joi.object({

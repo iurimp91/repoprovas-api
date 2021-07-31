@@ -1,12 +1,8 @@
-export interface ExamInterface {
+export interface ExamsInterface {
     year: number,
     semester: number,
+    link: string,
     categoryId: number,
     subjectId: number,
     teacherId: number,
-    link: string,
-}
-
-export interface ReqParams {
-    id: number,
 }

@@ -1,14 +1,15 @@
 import { getRepository } from "typeorm";
 
-import Exam from "../entities/Exam";
+import Exams from "../entities/Exams";
+import { ExamsInterface } from "../interfaces/ExamInterface";
  
-async function createExam(exam: Exam) {
-    const examAlreadyExists = await getRepository(Exam).find(exam);
+async function createExam(exam: ExamsInterface) {
+    const examAlreadyExists = await getRepository(Exams).find(exam);
         
     if (examAlreadyExists[0]) {
         return true;
-    } else {
-        await getRepository(Exam).insert(exam);
+    } else {        
+        await getRepository(Exams).insert(exam);
         return false;
     }
 }

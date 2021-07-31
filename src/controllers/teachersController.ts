@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import Teachers from "../entities/Teachers";
+import { TeachersInterface } from "../interfaces/TeachersInterface";
 
 import * as teachersService from "../services/teachersService";
 
-async function getTeachers(req: Request, res: Response): Promise<Response<Teachers[]>> {
+async function getTeachers(req: Request, res: Response): Promise<Response<TeachersInterface[]>> {
     try {
         const teachers = await teachersService.findTeachers();
         
