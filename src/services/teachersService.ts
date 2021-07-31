@@ -26,4 +26,17 @@ async function findTeachers(): Promise<TeachersInterface[]> {
     return result;
 }
 
-export { findTeachersBySubject, findTeachers };
+async function findTeacherExams(id: number): Promise<TeachersInterface[]> {
+    const result: TeachersInterface[] = await getRepository(Teachers)
+        .createQueryBuilder("teachers")
+        .leftJoinAndSelect("teachers.exams", "exams")
+        .leftJoinAndSelect("exams.category", "categories")
+        .leftJoinAndSelect("exams.subject", "subjects")
+        .where("teachers.id = :id", { id })
+        .orderBy("teachers.name")
+        .getMany();
+
+    return result;
+}
+
+export { findTeachersBySubject, findTeachers, findTeacherExams };

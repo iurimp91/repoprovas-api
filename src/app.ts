@@ -25,6 +25,8 @@ app.get("/teachers/:subjectId", teachersController.getTeachersBySubject);
 
 app.get("/teachers", teachersController.getTeachers);
 
+app.get("/teacher/:id", teachersController.getTeacherExams);
+
 export default app;
 
 export async function init() {
