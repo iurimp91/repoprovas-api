@@ -20,14 +20,32 @@ describe("GET /teachers/:subjectId", () => {
   });
   
   it("should answer with status 200 and send an array of objects for valid params", async () => { 
-    const response = await supertest(app).get("/teachers");
-    
+    const response = await supertest(app).get("/teachers/8");
+
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
       expect.arrayContaining([
           expect.objectContaining({
               id: expect.any(Number),
               name: expect.any(String),
+              subjects: expect.any(Object),
+          })
+      ])
+    );
+  });
+});
+
+describe("GET /teachers", () => {
+  it("should answer with status 200 and send an array of objects for valid params", async () => { 
+    const response = await supertest(app).get("/teachers");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+          expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String),
+              exams: expect.any(Object),
           })
       ])
     );
