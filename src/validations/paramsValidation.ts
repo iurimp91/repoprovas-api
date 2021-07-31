@@ -4,10 +4,10 @@ import { ReqParams } from "../interfaces/ReqParams";
 
 export async function paramsValidation(params: ReqParams) {
     const schema = joi.object({
-        id: joi.number().integer().min(1).required()
+        subjectId: joi.number().integer().min(1).required()
     });
 
     const validParams: ReqParams = await schema.validateAsync(params);
 
-    return validParams.id;
+    return validParams.subjectId;
 }

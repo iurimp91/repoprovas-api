@@ -8,9 +8,4 @@ async function findSubjects(): Promise<SubjectsInterface[]> {
     return result;
 }
 
-async function findSubjectsById(id: number): Promise<SubjectsInterface[]> {
-    const result: SubjectsInterface[] = await getRepository(Subjects).findByIds([id], {relations: ["teachers"]});
-    return result;
-}
-
-export { findSubjects, findSubjectsById };
+export { findSubjects };

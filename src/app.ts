@@ -21,9 +21,9 @@ app.get("/categories", categoriesController.getCategories);
 
 app.get("/subjects", subjectsController.getSubjects);
 
-app.get("/subjects/:id", subjectsController.getSubjectsById);
+app.get("/teachers/:subjectId", teachersController.getTeachersBySubject);
 
-app.get("/teachers", teachersController.getTeachers);
+// app.get("/teachers", teachersController.getTeachers);
 
 export default app;
 
