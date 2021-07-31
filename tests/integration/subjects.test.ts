@@ -12,9 +12,9 @@ afterAll(async () => {
   await getConnection().close();
 });
 
-describe("GET /categories", () => {
+describe("GET /subjects", () => {
   it("should answer with status 200 and send an array of objects for valid params", async () => { 
-    const response = await supertest(app).get("/categories");
+    const response = await supertest(app).get("/subjects");
     
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
@@ -22,6 +22,7 @@ describe("GET /categories", () => {
           expect.objectContaining({
               id: expect.any(Number),
               name: expect.any(String),
+              period: expect.any(String),
           })
       ])
     );
