@@ -1,19 +1,17 @@
-import ExamInterface from "../../src/interfaces/interfaces";
-
 export default function createBody(
         year: number,
         semester: number,
-        categoryId: number,
-        subjectId: number,
-        teacherId: number,
+        category: number,
+        subject: number,
+        teacher: number,
         link: string
-    ): ExamInterface {
+    ) {
     return {
-        year: year,
-        semester: semester,
-        categoryId: categoryId,
-        subjectId: subjectId,
-        teacherId: teacherId,
-        link: link,
+        year,
+        semester,
+        category,
+        subject,
+        teacher,
+        link,
     };
 }

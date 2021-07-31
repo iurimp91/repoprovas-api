@@ -6,18 +6,18 @@ import app, { init } from "../../src/app";
 
 import createBody from "../factories/createBody";
 
-import Exam from "../../src/entities/Exam";
+import Exams from "../../src/entities/Exams";
 
 beforeAll(async () => {
   await init();
 });
 
 beforeEach(async () => {
-  await getConnection().getRepository(Exam).clear();
+  await getConnection().getRepository(Exams).clear();
 });
 
 afterAll(async () => {
-  await getConnection().getRepository(Exam).clear();
+  await getConnection().getRepository(Exams).clear();
   await getConnection().close();
 });
 
@@ -78,13 +78,13 @@ describe("POST /exam", () => {
   it("should answer with status 201 and save exam for valid body", async () => {
     const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
-    const beforeInsert = await getConnection().getRepository(Exam).find();
+    const beforeInsert = await getConnection().getRepository(Exams).find();
 
     expect(beforeInsert.length).toBe(0);
 
     const response = await supertest(app).post("/exam").send(body);
 
-    const afterInsert = await getConnection().getRepository(Exam).find();
+    const afterInsert = await getConnection().getRepository(Exams).find();
   
     expect(response.status).toBe(201);
     expect(afterInsert.length).toBe(1);
