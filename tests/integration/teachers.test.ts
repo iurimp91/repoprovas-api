@@ -13,6 +13,12 @@ afterAll(async () => {
 });
 
 describe("GET /teachers/:subjectId", () => {
+  it("should answer with status 400 for inexistent subject", async () => {
+    const response = await supertest(app).get("/teachers/999999");
+
+    expect(response.status).toBe(400);
+  });
+  
   it("should answer with status 200 and send an array of objects for valid params", async () => { 
     const response = await supertest(app).get("/teachers");
     
@@ -22,11 +28,8 @@ describe("GET /teachers/:subjectId", () => {
           expect.objectContaining({
               id: expect.any(Number),
               name: expect.any(String),
-              period: expect.any(String),
           })
       ])
     );
   });
-
-  it("should answer with status 400 for ")
 });
