@@ -7,12 +7,11 @@ async function findTeachers(): Promise<TeachersInterface[]> {
     const result: TeachersInterface[] = await getRepository(Teachers)
         .createQueryBuilder("teachers")
         .leftJoinAndSelect("teachers.exams", "exams")
-        .leftJoinAndSelect("exams.categories", "categories")
+        .leftJoinAndSelect("exams.category", "categories")
+        .leftJoinAndSelect("exams.subject", "subjects")
         .orderBy("teachers.name")
         .getMany();
-    // const result = await getRepository(Teachers).find({
-    //     relations: ["categories", "subjects", "exams"]
-    // });
+    
     return result;
 }
 
