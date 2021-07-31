@@ -11,7 +11,11 @@ async function getTeachersBySubject(req: Request, res: Response): Promise<Respon
 
         const teachers = await teachersService.findTeachersBySubject(subjectId);
         
-        return res.send(teachers);
+        if (teachers.length === 0) {
+            return res.sendStatus(400);
+        } else {
+            return res.send(teachers);
+        }
     } catch (e) {
         console.log(e.message);
         return res.sendStatus(500);
