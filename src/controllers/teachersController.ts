@@ -18,4 +18,15 @@ async function getTeachersBySubject(req: Request, res: Response): Promise<Respon
     }
 }
 
-export { getTeachersBySubject };
+async function getTeachers(req: Request, res: Response): Promise<Response<TeachersInterface[]>> {
+    try {
+        const teachers = await teachersService.findTeachers();
+        
+        return res.send(teachers);
+    } catch (e) {
+        console.log(e.message);
+        return res.sendStatus(500);
+    }
+}
+
+export { getTeachersBySubject, getTeachers };
