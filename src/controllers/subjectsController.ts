@@ -12,6 +12,6 @@ async function getSubjects(req: Request, res: Response): Promise<Response<Subjec
         console.log(e.message);
         return res.sendStatus(500);
     }
-} 
+}
 
 export { getSubjects };

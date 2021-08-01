@@ -13,4 +13,11 @@ async function findSubjects(): Promise<SubjectsInterface[]> {
     return result;
 }
 
-export { findSubjects };
+async function findSubjectById(id: number): Promise<SubjectsInterface> {
+    const result: SubjectsInterface = await getRepository(Subjects)
+        .findOne({ id });
+
+    return result;
+}
+
+export { findSubjects, findSubjectById };

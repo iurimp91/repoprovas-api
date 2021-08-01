@@ -3,10 +3,10 @@ import { CategoriesInterface } from "../interfaces/CategoriesInterface";
 
 import * as categoriesService from "../services/categoriesService";
 import * as teachersService from "../services/teachersService";
+import * as subjectsService from "../services/subjectsService";
 
-import { TeacherParams } from "../interfaces/TeacherParams";
-
-import { teacherParamsValidation } from "../validations/teacherParamsValidation";
+import { ReqParams } from "../interfaces/ReqParams";
+import { reqParamsValidation } from "../validations/reqParamsValidation";
 
 async function getCategories(req: Request, res: Response): Promise<Response<CategoriesInterface[]>> {
     try {
@@ -21,8 +21,8 @@ async function getCategories(req: Request, res: Response): Promise<Response<Cate
 
 async function getCategoriesExamsByTeacher(req: Request, res: Response): Promise<Response<CategoriesInterface[]>> {
     try {
-        const params: TeacherParams = { teacherId: Number(req.params.teacherId) };
-        const teacherId = await teacherParamsValidation(params);
+        const params: ReqParams = { id: Number(req.params.id) };
+        const teacherId = await reqParamsValidation(params);
 
         const findTeacher = await teachersService.findTeacherById(teacherId);
         
@@ -42,4 +42,27 @@ async function getCategoriesExamsByTeacher(req: Request, res: Response): Promise
     }
 }
 
-export { getCategories, getCategoriesExamsByTeacher };
+async function getCategoriesExamsBySubject(req: Request, res: Response): Promise<Response<CategoriesInterface[]>> {
+    try {
+        const params: ReqParams = { id: Number(req.params.id) };
+        const subjectId = await reqParamsValidation(params);
+
+        const findSubject = await subjectsService.findSubjectById(subjectId);
+        
+        if (findSubject === undefined) {
+            return res.sendStatus(404);
+        } else {
+            const categoriesExams = await categoriesService.findCategoriesExamsBySubject(subjectId);
+            
+            return res.send({
+                subjectName: findSubject.name,
+                examsByCategory: categoriesExams,
+            });
+        }
+    } catch (e) {
+        console.log(e.message);
+        return res.sendStatus(500);
+    }
+}
+
+export { getCategories, getCategoriesExamsByTeacher, getCategoriesExamsBySubject };

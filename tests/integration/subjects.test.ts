@@ -23,6 +23,7 @@ describe("GET /subjects", () => {
               id: expect.any(Number),
               name: expect.any(String),
               period: expect.any(String),
+              exams: expect.any(Object),
           })
       ])
     );

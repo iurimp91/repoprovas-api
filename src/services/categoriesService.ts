@@ -24,4 +24,17 @@ async function findCategoriesExamsByTeacher(teacherId: number): Promise<Categori
     return result;
 }
 
-export { findCategories, findCategoriesExamsByTeacher };
+async function findCategoriesExamsBySubject(subjectId: number): Promise<CategoriesInterface[] | boolean > {
+    const result = await getRepository(Categories)
+       .createQueryBuilder("categories")
+       .leftJoinAndSelect("categories.exams", "exams")
+       .leftJoinAndSelect("exams.subject", "subjects")
+       .leftJoinAndSelect("exams.teacher", "teachers")
+       .where("subjects.id = :subjectId", { subjectId })
+       .orderBy("categories.id")
+       .getMany();
+   
+   return result;
+}
+
+export { findCategories, findCategoriesExamsByTeacher, findCategoriesExamsBySubject };

@@ -21,11 +21,13 @@ app.get("/exam/:id", examController.getExam);
 
 app.get("/categories", categoriesController.getCategories);
 
-app.get("/categories/:teacherId", categoriesController.getCategoriesExamsByTeacher);
+app.get("/categories/teacher/:id", categoriesController.getCategoriesExamsByTeacher);
+
+app.get("/categories/subject/:id", categoriesController.getCategoriesExamsBySubject);
 
 app.get("/subjects", subjectsController.getSubjects);
 
-app.get("/teachers/:subjectId", teachersController.getTeachersBySubject);
+app.get("/teachers/:id", teachersController.getTeachersBySubject);
 
 app.get("/teachers", teachersController.getTeachers);
 

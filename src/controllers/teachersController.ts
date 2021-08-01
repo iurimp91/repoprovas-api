@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { TeachersInterface } from "../interfaces/TeachersInterface";
-import { SubjectParams } from "../interfaces/SubjectParams";
 
-import { subjectParamsValidation } from "../validations/subjectParamsValidation";
+import { ReqParams } from "../interfaces/ReqParams";
+import { reqParamsValidation } from "../validations/reqParamsValidation";
 
 import * as teachersService from "../services/teachersService";
 
 async function getTeachersBySubject(req: Request, res: Response): Promise<Response<TeachersInterface[]>> {
     try {
-        const params: SubjectParams = { subjectId: Number(req.params.subjectId) };
-        const subjectId = await subjectParamsValidation(params);
+        const params: ReqParams = { id: Number(req.params.id) };
+        const subjectId = await reqParamsValidation(params);
 
         const teachers = await teachersService.findTeachersBySubject(subjectId);
         
@@ -34,23 +34,5 @@ async function getTeachers(req: Request, res: Response): Promise<Response<Teache
         return res.sendStatus(500);
     }
 }
-
-// async function getTeacherExams(req: Request, res: Response): Promise<Response<TeachersInterface[]>> {
-//     try {
-//         const params: StandardParams = { id: Number(req.params.id) };
-//         const id = await standardParamsValidation(params);
-
-//         const teacherExams = await teachersService.findTeacherExams(id);
-
-//         if (teacherExams.length === 0) {
-//             return res.sendStatus(404);
-//         } else {
-//             return res.send(teacherExams);
-//         }
-//     } catch (e) {
-//         console.log(e.message);
-//         return res.sendStatus(500);
-//     }
-// }
 
 export { getTeachersBySubject, getTeachers };
