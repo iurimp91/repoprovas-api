@@ -6,15 +6,15 @@ import app, { init } from "../../src/app";
 
 import createBody from "../factories/createBody";
 
-import Exams from "../../src/entities/Exams";
+import clearAndRestartIdExamsTable from "../utils/clearAndRestartIdExamsTable";
 
 beforeAll(async () => {
   await init();
-  await getConnection().getRepository(Exams).clear();
+  clearAndRestartIdExamsTable();
 });
 
 afterAll(async () => {
-  await getConnection().getRepository(Exams).clear();
+  clearAndRestartIdExamsTable();
   await getConnection().close();
 });
 
@@ -63,8 +63,6 @@ describe("GET /categories/:teacherId", () => {
     expect(insertExam.status).toBe(201);
 
     const response = await supertest(app).get("/categories/1");
-
-    console.log(response.body.examsByCategory[0].exams)
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(

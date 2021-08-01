@@ -4,6 +4,9 @@ import { examValidation } from "../validations/examValidation";
 import * as examService from "../services/examService";
 import { ExamsInterface } from "../interfaces/ExamInterface";
 
+import { StandardParams } from "../interfaces/StandardParams";
+import { standardParamsValidation } from "../validations/standardParamsValidation";
+
 async function postExam(req: Request, res: Response) {
     try {
         const exam: ExamsInterface = req.body;
@@ -21,7 +24,25 @@ async function postExam(req: Request, res: Response) {
     }
 }
 
-export { postExam };
+async function getExam(req: Request, res: Response): Promise<Response<ExamsInterface>> {
+    try {
+        const params: StandardParams = { id: Number(req.params.id) };
+        const id = await standardParamsValidation(params);
+
+        const exam = await examService.findExam(id);
+
+        if (!exam) {
+            return res.sendStatus(404);
+        } else {
+            return res.send(exam);
+        }
+    } catch (e) {
+        console.log(e);
+        return res.sendStatus(500);
+    }
+}
+
+export { postExam, getExam };
 
 function sendError(e: Error, res: Response): Response {
     console.log(e.message);

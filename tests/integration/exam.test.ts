@@ -8,16 +8,18 @@ import createBody from "../factories/createBody";
 
 import Exams from "../../src/entities/Exams";
 
+import clearAndRestartIdExamsTable from "../utils/clearAndRestartIdExamsTable";
+
 beforeAll(async () => {
   await init();
 });
 
 beforeEach(async () => {
-  await getConnection().getRepository(Exams).clear();
+  clearAndRestartIdExamsTable();
 });
 
 afterAll(async () => {
-  await getConnection().getRepository(Exams).clear();
+  clearAndRestartIdExamsTable();
   await getConnection().close();
 });
 
@@ -88,5 +90,35 @@ describe("POST /exam", () => {
   
     expect(response.status).toBe(201);
     expect(afterInsert.length).toBe(1);
+  });
+});
+
+describe("GET /exam/:id", () => {
+  it("should answer with status 404 for inexistent exam", async () => {
+    const response = await supertest(app).get("/exam/999999");
+
+    expect(response.status).toBe(404);
+  });
+
+  it("should answer with status 200 and an exam object for valid params", async () => { 
+    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    
+    const insertExam = await supertest(app).post("/exam").send(body);
+
+    expect(insertExam.status).toBe(201);
+
+    const response = await supertest(app).get("/exam/1");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        id: expect.any(Number),
+        year: expect.any(Number),
+        semester: expect.any(Number),
+        link: expect.any(String),
+        category: expect.any(Object),
+        subject: expect.any(Object),
+        teacher: expect.any(Object),
+      }));
   });
 });

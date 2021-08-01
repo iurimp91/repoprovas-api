@@ -14,4 +14,17 @@ async function createExam(exam: ExamsInterface) {
     }
 }
 
-export { createExam };
+async function findExam(id: number) {
+    const result = await getRepository(Exams)
+        .createQueryBuilder("exams")
+        .leftJoinAndSelect("exams.category", "categories")
+        .leftJoinAndSelect("exams.subject", "subjects")
+        .leftJoinAndSelect("exams.teacher", "teachers")
+        .where("exams.id = :id", { id })
+        .orderBy("categories.id")
+        .getOne();
+
+    return result;
+}
+
+export { createExam, findExam };

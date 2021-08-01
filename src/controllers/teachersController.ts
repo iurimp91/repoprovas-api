@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import { TeachersInterface } from "../interfaces/TeachersInterface";
 import { SubjectParams } from "../interfaces/SubjectParams";
-import { StandardParams } from "../interfaces/StandardParams";
+
 import { subjectParamsValidation } from "../validations/subjectParamsValidation";
-import { standardParamsValidation } from "../validations/standardParamsValidation";
 
 import * as teachersService from "../services/teachersService";
 
