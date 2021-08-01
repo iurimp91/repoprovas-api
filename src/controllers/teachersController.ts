@@ -36,22 +36,22 @@ async function getTeachers(req: Request, res: Response): Promise<Response<Teache
     }
 }
 
-async function getTeacherExams(req: Request, res: Response): Promise<Response<TeachersInterface[]>> {
-    try {
-        const params: StandardParams = { id: Number(req.params.id) };
-        const id = await standardParamsValidation(params);
+// async function getTeacherExams(req: Request, res: Response): Promise<Response<TeachersInterface[]>> {
+//     try {
+//         const params: StandardParams = { id: Number(req.params.id) };
+//         const id = await standardParamsValidation(params);
 
-        const teacherExams = await teachersService.findTeacherExams(id);
+//         const teacherExams = await teachersService.findTeacherExams(id);
 
-        if (teacherExams.length === 0) {
-            return res.sendStatus(404);
-        } else {
-            return res.send(teacherExams);
-        }
-    } catch (e) {
-        console.log(e.message);
-        return res.sendStatus(500);
-    }
-}
+//         if (teacherExams.length === 0) {
+//             return res.sendStatus(404);
+//         } else {
+//             return res.send(teacherExams);
+//         }
+//     } catch (e) {
+//         console.log(e.message);
+//         return res.sendStatus(500);
+//     }
+// }
 
-export { getTeachersBySubject, getTeachers, getTeacherExams };
+export { getTeachersBySubject, getTeachers };

@@ -19,13 +19,15 @@ app.post("/exam", examController.postExam);
 
 app.get("/categories", categoriesController.getCategories);
 
+app.get("/categories/:teacherId", categoriesController.getCategoriesExamsByTeacher);
+
 app.get("/subjects", subjectsController.getSubjects);
 
 app.get("/teachers/:subjectId", teachersController.getTeachersBySubject);
 
 app.get("/teachers", teachersController.getTeachers);
 
-app.get("/teacher/:id", teachersController.getTeacherExams);
+//app.get("/teacher/:id", teachersController.getTeacherExams);
 
 export default app;
 

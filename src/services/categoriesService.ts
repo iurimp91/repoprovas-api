@@ -1,11 +1,27 @@
 import { getRepository } from "typeorm";
 
-import Categories from "../entities/Categories"
+import Categories from "../entities/Categories";
+import Teachers from "../entities/Teachers"
+
 import { CategoriesInterface } from "../interfaces/CategoriesInterface";
  
 async function findCategories(): Promise<CategoriesInterface[]> {
     const result = await getRepository(Categories).find();
+    
     return result;
 }
 
-export { findCategories };
+async function findCategoriesExamsByTeacher(teacherId: number): Promise<CategoriesInterface[] | boolean > {
+     const result = await getRepository(Categories)
+        .createQueryBuilder("categories")
+        .leftJoinAndSelect("categories.exams", "exams")
+        .leftJoinAndSelect("exams.subject", "subjects")
+        .leftJoinAndSelect("exams.teacher", "teachers")
+        .where("teachers.id = :teacherId", { teacherId })
+        .orderBy("categories.id")
+        .getMany();
+    
+    return result;
+}
+
+export { findCategories, findCategoriesExamsByTeacher };
