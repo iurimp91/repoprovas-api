@@ -60,7 +60,7 @@ describe("GET /categories/teacher/:id", () => {
   });
 
   it("should answer with status 200 and an array with exams filteres by category for valid params", async () => { 
-    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const insertExam = await supertest(app).post("/exam").send(body);
 
@@ -115,13 +115,13 @@ describe("GET /categories/subject/:id", () => {
   });
 
   it("should answer with status 200 and an array with exams filteres by category for valid params", async () => { 
-    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const insertExam = await supertest(app).post("/exam").send(body);
 
     expect(insertExam.status).toBe(201);
 
-    const response = await supertest(app).get("/categories/subject/1");
+    const response = await supertest(app).get("/categories/subject/8");
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
