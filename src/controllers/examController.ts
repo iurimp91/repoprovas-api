@@ -16,7 +16,6 @@ async function postExam(req: Request, res: Response) {
         const validExam = await examValidation(exam);
 
         const checkTeacherSubject = await subjectsService.findSubjectAndTeacher(exam);
-        console.log(checkTeacherSubject);
 
         if (checkTeacherSubject.length === 0) return res.sendStatus(400);
 
