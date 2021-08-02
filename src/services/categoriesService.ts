@@ -1,7 +1,6 @@
 import { getRepository } from "typeorm";
 
 import Categories from "../entities/Categories";
-import Teachers from "../entities/Teachers"
 
 import { CategoriesInterface } from "../interfaces/CategoriesInterface";
  

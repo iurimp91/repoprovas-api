@@ -11,7 +11,7 @@ async function postExam(req: Request, res: Response) {
     try {
         const exam: ExamsInterface = req.body;
         const validExam = await examValidation(exam);
-        
+
         const result = await examService.createExam(validExam);
         
         if (result) {
