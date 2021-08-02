@@ -33,7 +33,7 @@ describe("POST /exam", () => {
   });
 
   it("should answer with status 400 for invalid year", async () => {
-    const body = createBody(-2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(-2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const response = await supertest(app).post("/exam").send(body);
     
@@ -41,7 +41,7 @@ describe("POST /exam", () => {
   });
 
   it("should answer with status 400 for semester different from 1 or 2", async () => {
-    const body = createBody(2020, 3, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 3, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const response = await supertest(app).post("/exam").send(body);
     
@@ -49,7 +49,15 @@ describe("POST /exam", () => {
   });
 
   it("should answer with status 400 for inexistent teacher, subject or category", async () => {
-    const body = createBody(2020, 1, 100, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 1, 100, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    
+    const response = await supertest(app).post("/exam").send(body);
+    
+    expect(response.status).toBe(400);
+  });
+
+  it("should answer with status 400 for teacher not belonging to the subject", async () => {
+    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const response = await supertest(app).post("/exam").send(body);
     
@@ -57,7 +65,7 @@ describe("POST /exam", () => {
   });
 
   it("should answer with status 400 for invalid pdf link", async () => {
-    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50");
+    const body = createBody(2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50");
     
     const response = await supertest(app).post("/exam").send(body);
     
@@ -65,7 +73,7 @@ describe("POST /exam", () => {
   });
 
   it("should answer with status 409 for duplicate exam", async () => {
-    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const firstInsert = await supertest(app).post("/exam").send(body);
     
@@ -78,7 +86,7 @@ describe("POST /exam", () => {
   });
 
   it("should answer with status 201 and save exam for valid body", async () => {
-    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const beforeInsert = await getConnection().getRepository(Exams).find();
 
@@ -101,7 +109,7 @@ describe("GET /exam/:id", () => {
   });
 
   it("should answer with status 200 and an exam object for valid params", async () => { 
-    const body = createBody(2020, 1, 1, 1, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
+    const body = createBody(2020, 1, 1, 8, 1, "https://infoprovas.dcc.ufrj.br/provas/50.pdf");
     
     const insertExam = await supertest(app).post("/exam").send(body);
 

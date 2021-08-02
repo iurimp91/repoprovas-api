@@ -2,15 +2,23 @@ import { Request, Response } from "express";
 import { examValidation } from "../validations/examValidation";
 
 import * as examService from "../services/examService";
+import * as subjectsService from "../services/subjectsService";
 import { ExamsInterface } from "../interfaces/ExamInterface";
 
 import { ReqParams } from "../interfaces/ReqParams";
 import { reqParamsValidation } from "../validations/reqParamsValidation";
 
+import Exams from "../entities/Exams";
+
 async function postExam(req: Request, res: Response) {
     try {
-        const exam: ExamsInterface = req.body;
+        const exam: Exams = req.body;
         const validExam = await examValidation(exam);
+
+        const checkTeacherSubject = await subjectsService.findSubjectAndTeacher(exam);
+        console.log(checkTeacherSubject);
+
+        if (checkTeacherSubject.length === 0) return res.sendStatus(400);
 
         const result = await examService.createExam(validExam);
         

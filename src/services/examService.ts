@@ -3,7 +3,7 @@ import { getRepository } from "typeorm";
 import Exams from "../entities/Exams";
 import { ExamsInterface } from "../interfaces/ExamInterface";
  
-async function createExam(exam: ExamsInterface) {
+async function createExam(exam: Exams) {
     const examAlreadyExists = await getRepository(Exams).find(exam);
         
     if (examAlreadyExists[0]) {
