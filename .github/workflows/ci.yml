@@ -22,7 +22,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - env: 
+      env: 
         DATABASE_URL: postgres://postgres:123456@localhost:5432/repoprovas_test
         PORT: 4000
     - run: npm ci
