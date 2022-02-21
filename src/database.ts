@@ -5,6 +5,7 @@ if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL.indexOf("s
 }
 
 console.log(`${process.env.NODE_ENV === 'production' ? 'dist' : 'src'}/entities/*.*`);
+console.log(process.env.DATABASE_URL);
 
 export default async function connectDatabase() {
     const connectionManager = await getConnectionManager();
