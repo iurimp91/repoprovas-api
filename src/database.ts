@@ -13,7 +13,7 @@ export default async function connectDatabase() {
         name: "default",
         type: "postgres",
         url: process.env.DATABASE_URL,
-        entities: [__dirname + "/**/entities/*.{ts,js}"],
+        entities: ["/home/runner/work/repoprovas-api/src/**/entities/*.entities.{ts,js}"],
         ssl: process.env.NODE_ENV === 'production'
     });
 
