@@ -63,3 +63,4 @@ jobs:
           heroku_app_name: "api-repoprovas"
           heroku_email: "iurimp91@gmail.com"
           healthcheck: "https://api-repoprovas.herokuapp.com/health"
+          rollbackonhealthcheckfailed: true
