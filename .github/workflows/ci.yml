@@ -14,8 +14,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: 123456
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: repoprovas_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -24,7 +25,7 @@ jobs:
         ports:
           - 5432:5432
     env:
-      DATABASE_URL: postgres://postgres:123456@localhost:5432/repoprovas_test?sslmode=disable
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       
     strategy:
