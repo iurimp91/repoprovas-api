@@ -4,7 +4,6 @@ export class DatabaseCreated1627696162584 implements MigrationInterface {
     name = 'DatabaseCreated1627696162584'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE DATABASE "repoprovas" && CREATE DATABASE "repoprovas_test"`);
         await queryRunner.query(`CREATE TABLE "teachers" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_a8d4f83be3abe4c687b0a0093c8" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "subjects" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, "period" integer NOT NULL, CONSTRAINT "PK_1a023685ac2b051b4e557b0b280" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "exams" ("id" SERIAL NOT NULL, "year" integer NOT NULL, "semester" integer NOT NULL, "link" character varying NOT NULL, "categoryId" integer, "teacherId" integer, "subjectId" integer, CONSTRAINT "PK_b43159ee3efa440952794b4f53e" PRIMARY KEY ("id"))`);
