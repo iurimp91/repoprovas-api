@@ -40,13 +40,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: echo "Database URL $DATABASE_URL"
     - name: Install dependencies
       run: npm ci
     - name: Build
       run: npm run build --if-present
-    - name: Create database
-      run: create database "repoprovas_test"
+    - name: Connect to Postgres
+      run: sudo su postgres
+      env:
+        PGPASSWORD: Iuri!!06
     - name: Populate database
       run: npm run typeorm migration:run
       env:
