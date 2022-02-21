@@ -45,9 +45,11 @@ jobs:
     - name: Build
       run: npm run build --if-present
     - name: Connect to Postgres
-      run: sudo su postgres
+      run: sudo su postgres && echo ${{ secrets.PGPASSWORD }} 
       env:
-        PGPASSWORD: Iuri!!06
+        PGPASSWORD: ${{ secrets.PGPASSWORD }}
+    - name: Create database
+      run: psql && create database "repoprovas_test"
     - name: Populate database
       run: npm run typeorm migration:run
       env:
