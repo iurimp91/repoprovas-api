@@ -24,7 +24,7 @@ jobs:
         ports:
           - 5432:5432
     env:
-      DATABASE_URL: postgres://postgres:123456@localhost:5432/repoprovas_test
+      DATABASE_URL: postgres://postgres:123456@localhost:5432/repoprovas_test?sslmode=disable
 
       
     strategy:
