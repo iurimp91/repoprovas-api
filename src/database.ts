@@ -12,7 +12,7 @@ export default async function connectDatabase() {
     const connection = connectionManager.create({
         name: "default",
         type: "postgres",
-        url: "postgres://postgres:123456@localhost:5432/repoprovas_test",
+        url: process.env.DATABASE_URL,
         entities: [`${process.env.NODE_ENV === 'production' ? 'dist' : 'src'}/entities/*.*`],
         ssl: process.env.NODE_ENV === 'production'
     });
