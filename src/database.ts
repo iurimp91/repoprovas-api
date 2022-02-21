@@ -1,4 +1,8 @@
 import { getConnectionManager } from "typeorm";
+import Categories from "./entities/Categories";
+import Exams from "./entities/Exams";
+import Teachers from "./entities/Teachers";
+import Subjects from "./entities/Subjects";
 
 if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL.indexOf("sslmode=require") === -1) {
     process.env.DATABASE_URL += "?sslmode=require";
@@ -13,7 +17,7 @@ export default async function connectDatabase() {
         name: "default",
         type: "postgres",
         url: process.env.DATABASE_URL,
-        entities: [__dirname + "/entities/*.*"],
+        entities: [Exams, Categories, Teachers, Subjects],
         ssl: process.env.NODE_ENV === 'production'
     });
 
