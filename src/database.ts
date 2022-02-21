@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL.indexOf("s
 }
 
 console.log(`${process.env.NODE_ENV === 'production' ? 'dist' : 'src'}/entities/*.*`);
-console.log(__dirname + "/entity/*{.ts,.js}");
+console.log(__dirname + "/**/entities/*.entities.{ts,js}");
 
 export default async function connectDatabase() {
     const connectionManager = await getConnectionManager();
@@ -13,7 +13,7 @@ export default async function connectDatabase() {
         name: "default",
         type: "postgres",
         url: process.env.DATABASE_URL,
-        entities: [__dirname + "/entities/*{.ts,.js}"],
+        entities: [__dirname + "/**/entities/*.entities.{ts,js}"],
         ssl: process.env.NODE_ENV === 'production'
     });
 
