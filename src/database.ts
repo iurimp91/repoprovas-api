@@ -17,3 +17,5 @@ export default async function connectDatabase() {
     await connection.connect();
     return connection;
 }
+
+console.log("test");
